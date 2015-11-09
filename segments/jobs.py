@@ -7,6 +7,8 @@ def add_jobs_segment():
     output = subprocess.Popen(['ps', '-a', '-o', 'ppid'], stdout=subprocess.PIPE).communicate()[0]
     num_jobs = len(re.findall(str(pppid), output)) - 1
 
+    num_jobs -= 1
+
     if num_jobs > 0:
         powerline.append(' %d ' % num_jobs, Color.JOBS_FG, Color.JOBS_BG)
 
