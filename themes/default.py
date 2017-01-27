@@ -13,6 +13,9 @@ class DefaultColor:
     HOME_SPECIAL_DISPLAY = True
     HOME_BG = 31  # blueish
     HOME_FG = 15  # white
+    WORKSPACE_BG = 36  # blue/green
+    WORKSPACE_FG = 15  # white
+    WORKSPACE_SPECIAL_CHAR = u"\u0394"
     PATH_BG = 237  # dark grey
     PATH_FG = 250  # light grey
     CWD_FG = 254  # nearly-white grey
@@ -24,9 +27,9 @@ class DefaultColor:
     SSH_BG = 166 # medium orange
     SSH_FG = 254
 
-    REPO_CLEAN_BG = 148  # a light green color
+    REPO_CLEAN_BG = 45  # a light green color
     REPO_CLEAN_FG = 0  # black
-    REPO_DIRTY_BG = 161  # pink/red
+    REPO_DIRTY_BG = 169  # pink/red
     REPO_DIRTY_FG = 15  # white
 
     JOBS_FG = 39
@@ -43,6 +46,7 @@ class DefaultColor:
     VIRTUAL_ENV_BG = 35  # a mid-tone green
     VIRTUAL_ENV_FG = 00
     VIRTUAL_ENV_BAD_BG = 124
+    VIRTUAL_ENV_GLOBAL_BG = 70
 
 class Color(DefaultColor):
     """

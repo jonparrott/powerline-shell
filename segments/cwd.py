@@ -23,7 +23,7 @@ def split_path_into_names(cwd):
 def requires_special_home_display(name):
     """Returns true if the given directory name matches the home indicator and
     the chosen theme should use a special home indicator display."""
-    return (name == '~' and Color.HOME_SPECIAL_DISPLAY)
+    return (name in ('~', Color.WORKSPACE_SPECIAL_CHAR) and Color.HOME_SPECIAL_DISPLAY)
 
 
 def maybe_shorten_name(name):
@@ -38,8 +38,10 @@ def maybe_shorten_name(name):
 def get_fg_bg(name):
     """Returns the foreground and background color to use for the given name.
     """
-    if requires_special_home_display(name):
+    if name == '~':
         return (Color.HOME_FG, Color.HOME_BG,)
+    if name == Color.WORKSPACE_SPECIAL_CHAR:
+        return (Color.WORKSPACE_FG, Color.WORKSPACE_BG)
     return (Color.PATH_FG, Color.PATH_BG,)
 
 
@@ -60,6 +62,9 @@ def add_cwd_segment():
             # displayed, so chop everything else off
             names = names[-1:]
 
+        if names[:2] == [u'~', u'workspace']:
+            names = [Color.WORKSPACE_SPECIAL_CHAR] + names[2:]
+
         for i, name in enumerate(names):
             fg, bg = get_fg_bg(name)
 
@@ -69,6 +74,9 @@ def add_cwd_segment():
             if requires_special_home_display(name) or is_last_dir:
                 separator = None
                 separator_fg = None
+
+            if not is_last_dir and name == 'workspace':
+                name = 'ws'
 
             powerline.append(' %s ' % maybe_shorten_name(name), fg, bg,
                              separator, separator_fg)
