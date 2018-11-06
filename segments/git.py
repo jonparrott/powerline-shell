@@ -7,10 +7,10 @@ def get_git_status():
     has_pending_commits = True
     has_untracked_files = False
     origin_position = ""
-    output = subprocess.Popen(
+    output, _ = subprocess.Popen(
         ['git', 'status', '--ignore-submodules'],
         env={"LANG": "C", "HOME": os.getenv("HOME")},
-        stdout=subprocess.PIPE).communicate()[0]
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
 
     for line in output.split('\n'):
         origin_status = re.findall(
@@ -41,7 +41,7 @@ def add_git_segment():
     p = subprocess.Popen(['git', 'symbolic-ref', '-q', 'HEAD'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
 
-    if 'Not a git repo' in err:
+    if 'not a git repo' in err.lower():
         return
 
     if out:
